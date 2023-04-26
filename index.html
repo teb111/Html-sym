@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div id="root" data-typeId="123" data-type="file" data-points="-1" data-important="true" ></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+<script>
+
+    axios.get('https://mysdk.onrender.com/getfiles').then((response) =>{
+        const jsFiles = response.data.jsFiles;
+        const cssFiles = response.data.cssFiles;
+
+        elements = jsFiles.map(eachFileName => {
+            var script = document.createElement('script');
+            script.src = `https://mysdk.onrender.com/js/${eachFileName}`
+            document.head.appendChild(script)
+            return script;
+        })
+
+        elements = cssFiles.map(eachFileName => {
+            var link = document.createElement('link');
+            link.rel = `stylesheet`
+            link.href = `https://mysdk.onrender.com/css/${eachFileName}`
+            document.head.appendChild(link)
+            return link;
+        })
+    })
+</script>
+</body>
+</body>
+</html>
